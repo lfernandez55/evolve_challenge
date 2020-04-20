@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="Life">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Evolve</title>
+  <script src="live.js"></script>
+  <style>
+    table{
+    border-collapse: collapse; 
+    margin:auto;
+
+    }
+    th,td{
+    border: 1px solid black;
+    vertical-align: middle;
+    }
+    td{
+    width: 15px;
+    height: 15px;
+    font-size: .5em;
+    }
+    #container{
+    text-align: center;
+    background-color:#E9F5CA;
+    }
+    header{
+    text-align: center;
+    margin-bottom: 10px;
+    background-color:#CAEFC4;
+    }
+    header, container{
+    float:left;
+    width: 50%;
+    height: 100vh;
+    box-sizing:border-box;
+    padding: 30px;
+
+    }
+    body{
+    font-family:Futura,sans-serif;
+    }
+    li{
+    list-style: none;
+    }
+    td{
+    cursor:pointer;
+    }
+    #spacertop{
+    height:50px;
+    }
+    #spacerbottom{
+    height: 400px;
+    }
+      sup{
+         color:red;
+         font-weight: bolder;
+      }
+  </style>
+</head>
+<body onload="addClicks()">
+       
+    
+<header>
+
+    <h1>Conway's Game of Life</h1>
+    <p>
+    In Conway's Game of Life cells come into being, persist and perish depending on how many live cells are adjacent to them. Here are the rules they live and die by:
+    </p>  
+    <ul>
+                <li>If a live cell has less than two living neighbours<sup>*</sup>, it perishes</li>
+                <li>If a live cell has two or three living neighbours it continues to live</li>
+                <li>If a live cell has more than three living neighbours, it perishes</li>
+                <li>If a dead cell has exactly three living neighbours, it comes into being</li>
+                <li><sup>*</sup>When a cell touches the corner or side of another cell they are neighbors</li>
+    </ul>
+
+    <button onclick="blinkersAndCrawlers()">Blinkers and Gliders</button>
+
+    <button onclick="evolve()">Evolve</button>
+
+    <button onclick="evolveAuto()">Evolve (Auto)</button>
+
+    <button onclick="apocalypse()">Apocalypse</button>
+</header>
+
+<div id="container">
+<div id="spacertop"></div>
+<table id="grid">
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+      <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+    <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+      <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+    <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+      <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+    <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+      <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  <tr>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>    <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+</table>
+<div id="spacerbottom"></div>
+</div>
+</body>
+</html>
